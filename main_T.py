@@ -16,29 +16,25 @@ def search(db, query):
 	esearch = requests.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi", params=payload) #calls the entrez API and prints the result
 
 	return(esearch.text)
-
+#Parsing function
 def XMLParse(esearch):
+	"""
+	Should get the XML output from the search function and return the query key and webenv
+	It is not working currently because the query_key and WebEnv are not being recognized for some reason
+	"""
 	tree = ET.fromstring(esearch)	
 	query_key = tree.find("QueryKey").text
 	WebEnv = tree.find("WebEnv").text
 	return(query_key, WebEnv)
 
-print(query_key)
-print(WebEnv)
+def efetch(db, query_key, WebEnv):
+	"""
+	SHould get the query key and webenv from the parsing fucntion and return the fasta result from the efetch
+	"""
+	payload2 = {"db" : db, "term": query_key, "term" : WebEnv, "usehistory" : "y", "rettype" : "fasta"}
+	efetch = requests.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi", params=payload2)
 
+	return(efetch.text)
 
+print(efetch)
 
-
-	#efetch = requests.get("url pending")
-
-	##section to parse results to get the sequences
-
-
-
-
-
-#def write():
-	##heavily pending
-	#darrrgggggggg (heartbroken emoji x3)	
-search_result = search(args.db, args.query)
-print(search_result)
