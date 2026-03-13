@@ -12,7 +12,7 @@ Facilitate the process of NCBI's api handling
 
 ## How to use it
 python main.py -db «database» -q «query» -o «output»
-OR
+###OR
 python main.py --database «database» --query «query» --output «output»
 
 ## Requirements
